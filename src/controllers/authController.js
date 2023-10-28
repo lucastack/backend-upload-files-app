@@ -1,5 +1,6 @@
 const authService = require("../services/authService");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 class AuthController {
   constructor(authService) {
@@ -23,7 +24,10 @@ class AuthController {
       if (!isPasswordValid) {
         return res.status(401).json({ error: "Invalid username or password" });
       }
-      res.status(200).json({ message: "Successfully authenticated" });
+      const token = jwt.sign({ user }, "privatekey", { expiresIn: "12h" });
+      res
+        .status(200)
+        .json({ message: "Successfully authenticated", token: token });
     } catch (error) {
       console.error("Error during authentication:", error);
       res.status(500).json({ error: "Internal Server Error" });
