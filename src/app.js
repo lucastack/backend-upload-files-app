@@ -9,7 +9,7 @@ sequelize
   .catch((err) => console.error("Error connecting to the database:", err));
 
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     console.log("Tables have been created!");
   })
