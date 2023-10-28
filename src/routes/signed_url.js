@@ -1,32 +1,23 @@
+const authValid = require("../middlewares/authToken");
 const express = require("express");
-const authToken = require("../middlewares/authToken");
-const { Storage } = require("@google-cloud/storage");
+
+const SignedUrlController = require("../controllers/signedUrlsController");
+const StorageService = require("../services/storageService");
 
 const router = express.Router();
 
-const storage = new Storage({
+const StorageClientOptions = {
   keyFilename: "credentials.json",
   projectId: "video-platform-402415",
-});
+};
 
-const bucket = storage.bucket("input-videos-bucket");
+const bucketName = "input-videos-bucket";
 
-async function generateV4WriteSignedUrl(fileName) {
-  const options = {
-    version: "v4",
-    action: "write",
-    expires: Date.now() + 15 * 60 * 1000,
-    contentType: "application/octet-stream",
-  };
-  const [signedUrl] = await bucket.file(fileName).getSignedUrl(options);
-  return signedUrl;
-}
+const storageService = new StorageService(StorageClientOptions, bucketName);
+const signedUrlsController = new SignedUrlController(storageService);
 
-router.post("/generate", authToken, async (req, res) => {
-  const { filePath } = req.body;
-  signedUrl = await generateV4WriteSignedUrl(filePath);
-  console.log(`Uploading file at relative path: ${filePath}`);
-  // res.status(200).send({ signedUrl: signedUrl });
-});
+router.post("/generate", (req, res) =>
+  signedUrlsController.generateSignedUrl(req, res),
+);
 
 module.exports = router;
