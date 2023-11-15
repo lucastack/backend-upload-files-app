@@ -1,7 +1,7 @@
 FROM node:20-slim
 
 # Set the working directory.
-WORKDIR /usr/src/app
+WORKDIR /workdir
 
 COPY package*.json ./
 
@@ -11,5 +11,5 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["node", "app.js"]
+CMD ["node", "src/app.js"]
 
