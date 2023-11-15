@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres_db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_USER: dbuser
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+
+  nodeapp:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
