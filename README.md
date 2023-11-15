@@ -11,3 +11,5 @@ Basically, a logged in user asks this backend to upload a file with a filepath, 
 With this setup you avoid giving credentials to users. 
 
 Feel free to ask me anything, just write an issue
+
+See also the [frontend](https://github.com/lucastack/fe-cicd-test) for this project.
