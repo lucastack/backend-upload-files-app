@@ -13,3 +13,5 @@ With this setup you avoid giving credentials to users.
 Feel free to ask me anything, just write an issue
 
 See also the [frontend](https://github.com/lucastack/fe-cicd-test) for this project.
+
+Tools: Express js, Docker
