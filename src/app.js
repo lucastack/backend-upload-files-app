@@ -29,6 +29,10 @@ app.use(bodyParser.json());
 app.use("/signed_url", signedUrlRouter);
 app.use("/user", userRouter);
 
+app.get("/health", (_, res) => {
+  res.status(200).send("OK");
+});
+
 app.listen(port, () => {
   console.log(`Server started on port: ${port}`);
 });
